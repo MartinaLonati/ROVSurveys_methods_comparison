@@ -1,0 +1,110 @@
+date,survey,suvrey_ID,method,depth,soak time (hours),Time_Day,reef aspect ,habitat,family,genus,species,number,time in,time out,treatment,camera
+5/20/2023,MR_23,May_23-MR-D1-DAWN-T1-Nat,DOV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.28125,0.302083333,Nat,NA
+5/20/2023,MR_23,May_23-MR-D1-DAWN-T1-Red,ROV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.2625,0.267361111,Red,NA
+5/20/2023,MR_23,May_23-MR-D1-DAWN-T1-White,ROV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.272916667,0.278472222,White,NA
+5/20/2023,MR_23,May_23-MR-D1-DUSK-T1-Nat,DOV,15,,DUSK,gentle_slope,lagoon,NA,NA,NA,0,0.753472222,0.772222222,Nat,NA
+5/20/2023,MR_23,May_23-MR-D1-DUSK-T1-Red,ROV,15,,DUSK,gentle_slope,lagoon,Carcharhinidae,Carcharhinus,Carcharhinus amblyrhynchos,2,0.731944444,0.7375,Red,Left
+5/20/2023,MR_23,May_23-MR-D1-DUSK-T1-White,ROV,15,,DUSK,gentle_slope,lagoon,NA,NA,NA,0,0.742361111,0.748611111,White,NA
+5/20/2023,MR_23,May_23-MR-D1-PM-T1-Nat,DOV,15,,PM,gentle_slope,lagoon,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.6875,0.725694444,Nat,Left
+5/20/2023,MR_23,May_23-MR-D1-PM-T1-Nat,ROV,15,,PM,gentle_slope,lagoon,NA,NA,NA,0,0.654166667,0.659722222,Nat,NA
+5/20/2023,MR_23,May_23-MR-D1-NOC1-T1-Red,ROV,15,,NOC1,gentle_slope,lagoon,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.915277778,0.920833333,Red,Pilot
+5/20/2023,MR_23,May_23-MR-D1-NOC1-T1-White,ROV,15,,NOC1,gentle_slope,lagoon,NA,NA,NA,0,0.98125,0.9875,White,NA
+5/21/2023,MR_23,May_23-MR-D2-DAWN-T1-Nat,DOV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.298611111,0.305555556,Nat,NA
+5/21/2023,MR_23,May_23-MR-D2-DAWN-T1-Red,ROV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.259722222,0.273611111,Red,NA
+5/21/2023,MR_23,May_23-MR-D2-DAWN-T1-White,ROV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.28125,0.290972222,White,NA
+5/21/2023,MR_23,May_23-MR-D2-DUSK-T1-Nat,DOV,15,,DUSK,gentle_slope,lagoon,Carcharhinidae,Carcharhinus,Carcharhinus amblyrhynchos,1,0.753472222,0.772222222,Nat,Left
+5/21/2023,MR_23,May_23-MR-D2-DUSK-T1-Red,ROV,15,,DUSK,gentle_slope,lagoon,Carcharhinidae,Carcharhinus,Carcharhinus spp.,1,0.714583333,0.720138889,Red,Right
+5/21/2023,MR_23,May_23-MR-D2-DUSK-T1-White,ROV,15,,DUSK,gentle_slope,lagoon,NA,NA,NA,0,0.725694444,0.732638889,White,NA
+5/21/2023,MR_23,May_23-MR-D2-PM-T1-Nat,DOV,15,,PM,gentle_slope,lagoon,NA,NA,NA,0,0.653472222,0.661111111,Nat,NA
+5/21/2023,MR_23,May_23-MR-D2-PM-T1-Nat,ROV,15,,PM,gentle_slope,lagoon,NA,NA,NA,0,0.642361111,0.649305556,Nat,NA
+5/21/2023,MR_23,May_23-MR-D2-NOC1-T1-Red ,ROV,15,,NOC1,gentle_slope,lagoon,NA,NA,NA,0,0.90625,0.9125,Red,NA
+5/21/2023,MR_23,May_23-MR-D2-NOC1-T1-White,ROV,15,,NOC1,gentle_slope,lagoon,NA,NA,NA,0,0.91875,0.925,White,NA
+5/22/2023,MR_23,May_23-MR-D2-NOC2-T1-Red ,ROV,15,,NOC2,gentle_slope,lagoon,NA,NA,NA,0,0.161805556,0.166666667,Red,NA
+5/22/2023,MR_23,May_23-MR-D2-NOC2-T1-White,ROV,15,,NOC2,gentle_slope,lagoon,NA,NA,NA,0,0.18125,0.186111111,White,NA
+5/22/2023,MR_23,May_23-MR-D3-DAWN-T1-Nat,DOV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.268055556,0.273611111,Nat,NA
+5/22/2023,MR_23,May_23-MR-D3-DAWN-T1-Red,ROV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.25,0.254166667,Red,NA
+5/22/2023,MR_23,May_23-MR-D3-DAWN-T1-White,ROV,15,,DAWN,gentle_slope,lagoon,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.259722222,0.263888889,White,Front
+5/22/2023,MR_23,May_23-MR-D3-DUSK-T1-Nat,DOV,15,,DUSK,gentle_slope,lagoon,NA,NA,NA,0,0.739583333,0.745833333,Nat,NA
+5/22/2023,MR_23,May_23-MR-D3-DUSK-T1-Red,ROV,15,,DUSK,gentle_slope,lagoon,Rhinobatidae,Rhina,Rhina ancylostoma,1,0.719444444,0.725,Red,Back
+5/22/2023,MR_23,May_23-MR-D3-DUSK-T1-White,ROV,15,,DUSK,gentle_slope,lagoon,NA,NA,NA,0,0.729166667,0.734722222,White,NA
+5/22/2023,MR_23,May_23-MR-D3-PM-T1-Nat,DOV,15,,PM,gentle_slope,lagoon,NA,NA,NA,0,0.649305556,0.654861111,Nat,NA
+5/22/2023,MR_23,May_23-MR-D3-PM-T1-Nat,ROV,15,,PM,gentle_slope,lagoon, Carcharhinidae ,Carcharhinus,Carcharhinus spp.,1,0.638194444,0.650694444,Nat,Front
+5/22/2023,MR_23,May_23-MR-D3-NOC1-T1-Red,ROV,15,,NOC1,gentle_slope,lagoon,NA,NA,NA,0,0.969444444,0.975,Red,NA
+5/22/2023,MR_23,May_23-MR-D3-NOC1-T1-White,ROV,15,,NOC1,gentle_slope,lagoon,NA,NA,NA,0,0.980555556,0.986111111,White,NA
+5/23/2023,MR_23,May_23-MR-D3-NOC2-T1-Red,ROV,15,,NOC2,gentle_slope,lagoon,NA,NA,NA,0,0.158333333,0.163888889,Red,NA
+5/23/2023,MR_23,May_23-MR-D3-NOC2-T1-White,ROV,15,,NOC2,gentle_slope,lagoon,NA,NA,NA,0,0.169444444,0.173611111,White,NA
+5/22/2023,MR_23,May_23-MR-D3-DAWN-T2-Nat,DOV,18,,DAWN,moderate_slope,inner_reef,NA,NA,NA,0,0.295138889,0.300694444,Nat,NA
+5/22/2023,MR_23,May_23-MR-D3-DAWN-T2-Red,ROV,18,,DAWN,moderate_slope,inner_reef,NA,NA,NA,0,0.274305556,0.279166667,Red,NA
+5/22/2023,MR_23,May_23-MR-D3-DAWN-T2-White,ROV,18,,DAWN,moderate_slope,inner_reef,NA,NA,NA,0,0.290277778,0.295138889,White,NA
+5/22/2023,MR_23,May_23-MR-D3-DUSK-T2-Red,ROV,18,,DUSK,moderate_slope,inner_reef,NA,NA,NA,0,0.74375,0.747916667,Red,NA
+5/22/2023,MR_23,May_23-MR-D3-DUSK-T2-White,ROV,18,,DUSK,moderate_slope,inner_reef,NA,NA,NA,0,0.755555556,0.760416667,White,NA
+5/22/2023,MR_23,May_23-MR-D3-PM-T2-Nat,DOV,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.668055556,0.673611111,Nat,NA
+5/22/2023,MR_23,May_23-MR-D3-PM-T2-Nat,ROV,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.654166667,0.657638889,Nat,NA
+5/23/2023,MR_23,May_23-MR-D3-NOC1-T2-Red,ROV,18,,NOC1,moderate_slope,inner_reef,NA,NA,NA,0,0,0.009027778,Red,NA
+5/23/2023,MR_23,May_23-MR-D3-NOC1-T2-White,ROV,18,,NOC1,moderate_slope,inner_reef,NA,NA,NA,0,0.016666667,0.022222222,White,NA
+5/23/2023,MR_23,May_23-MR-D3-NOC2-T2-Red,ROV,18,,NOC2,moderate_slope,inner_reef,NA,NA,NA,0,0.184027778,0.189583333,Red,NA
+5/23/2023,MR_23,May_23-MR-D3-NOC2-T2-White,ROV,18,,NOC2,moderate_slope,inner_reef,NA,NA,NA,0,0.198611111,0.205555556,White,NA
+5/23/2023,MR_23,May_23-MR-D4-DAWN-T1-Nat,DOV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.284027778,0.290972222,Nat,NA
+5/23/2023,MR_23,May_23-MR-D4-DAWN-T1-Red,ROV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.265277778,0.269444444,Red,NA
+5/23/2023,MR_23,May_23-MR-D4-DAWN-T1-White,ROV,15,,DAWN,gentle_slope,lagoon,NA,NA,NA,0,0.275694444,0.281944444,White,NA
+5/23/2023,MR_23,May_23-MR-D4-DUSK-T1-Red,ROV,15,,DUSK,gentle_slope,lagoon,NA,NA,NA,0,0.744444444,0.750694444,Red,NA
+5/23/2023,MR_23,May_23-MR-D4-DUSK-T1-White,ROV,15,,DUSK,gentle_slope,lagoon,NA,NA,NA,0,0.759027778,0.765972222,White,NA
+5/23/2023,MR_23,May_23-MR-D4-PM-T1-Nat,DOV,15,,PM,gentle_slope,lagoon,NA,NA,NA,0,0.652083333,0.659027778,Nat,NA
+5/23/2023,MR_23,May_23-MR-D4-PM-T1-Nat,ROV,15,,PM,gentle_slope,lagoon, Carcharhinidae ,Carcharhinus,Carcharhinus spp.,1,0.640972222,0.647916667,Nat,Left
+5/24/2023,MR_23,May_23-MR-D4-NOC1-T1-Red,ROV,15,,NOC1,gentle_slope,lagoon,NA,NA,NA,0,0.020833333,0.027777778,Red,NA
+5/24/2023,MR_23,May_23-MR-D4-NOC1-T1-White,ROV,15,,NOC1,gentle_slope,lagoon,NA,NA,NA,0,0.034722222,0.041666667,White,NA
+5/23/2023,MR_23,May_23-MR-D4-DAWN-T2-Nat,DOV,18,,DAWN,moderate_slope,inner_reef,NA,NA,NA,0,0.29375,0.299305556,Nat,NA
+5/23/2023,MR_23,May_23-MR-D4-DAWN-T2-Red,ROV,18,,DAWN,moderate_slope,inner_reef,Carcharhinidae,Carcharhinus,Carcharhinus amblyrhynchos,1,0.298611111,0.307638889,Red,Pilot
+5/23/2023,MR_23,May_23-MR-D4-DUSK-T2-Nat,DOV,18,,DUSK,moderate_slope,inner_reef,NA,NA,NA,0,0.740277778,0.745833333,Nat,NA
+5/23/2023,MR_23,May_23-MR-D4-DUSK-T2-Red,ROV,18,,DUSK,moderate_slope,inner_reef,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.720833333,0.725694444,Red,Pilot
+5/23/2023,MR_23,May_23-MR-D4-DUSK-T2-White,ROV,18,,DUSK,moderate_slope,inner_reef,Carcharhinidae,Negaprion,Negaprion acutidens,1,0.733333333,0.738194444,White,Back
+5/23/2023,MR_23,May_23-MR-D4-PM-T2-Nat,DOV,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.668055556,0.674305556,Nat,NA
+5/23/2023,MR_23,May_23-MR-D4-PM-T2-Nat,ROV,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.656944444,0.659027778,Nat,NA
+5/23/2023,MR_23,May_23-MR-D4-NOC1-T2-Red,ROV,18,,NOC1,moderate_slope,inner_reef,NA,NA,NA,0,0.993055556,0.001388889,Red,NA
+5/24/2023,MR_23,May_23-MR-D5-DAWN-T2-Nat,DOV,18,,DAWN,moderate_slope,inner_reef,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.277777778,0.283333333,Nat,Left
+5/24/2023,MR_23,May_23-MR-D5-DAWN-T2-Red,ROV,18,,DAWN,moderate_slope,inner_reef,NA,NA,NA,0,0.256944444,0.2625,Red,NA
+5/24/2023,MR_23,May_23-MR-D5-DAWN-T2-White,ROV,18,,DAWN,moderate_slope,inner_reef,NA,NA,NA,0,0.269444444,0.275,White,NA
+5/24/2023,MR_23,May_23-MR-D5-DUSK-T2-Nat,DOV,18,,DUSK,moderate_slope,inner_reef,NA,NA,NA,0,0.747222222,0.755555556,Nat,NA
+5/24/2023,MR_23,May_23-MR-D5-DUSK-T2-Red,ROV,18,,DUSK,moderate_slope,inner_reef,Carcharhinidae,Negaprion,Negaprion acutidens,1,0.724305556,0.729166667,Red,Left
+5/24/2023,MR_23,May_23-MR-D5-DUSK-T2-White,ROV,18,,DUSK,moderate_slope,inner_reef,NA,NA,NA,0,0.740277778,0.747222222,White,NA
+5/24/2023,MR_23,May_23-MR-D5-PM-T2-Nat,DIVE,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.661805556,0.66875,Nat,NA
+5/24/2023,MR_23,May_23-MR-D5-PM-T2-Nat,ROV,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.654861111,0.661111111,Nat,NA
+5/25/2023,MR_23,May_23-MR-D5-NOC2-T2-Red,ROV,18,,NOC2,moderate_slope,inner_reef,NA,NA,NA,0,0.11875,0.129861111,Red,NA
+5/25/2023,MR_23,May_23-MR-D5-NOC2-T2-White,ROV,18,,NOC2,moderate_slope,inner_reef,NA,NA,NA,0,0.140277778,0.148611111,White,NA
+5/24/2023,MR_23,May_23-MR-D5-DAWN-T3-Nat,DOV,8,,DAWN, reef flat,lagoon,NA,NA,NA,0,0.302083333,0.307638889,Nat,NA
+5/24/2023,MR_23,May_23-MR-D5-DAWN-T3-Red,ROV,8,,DAWN, reef flat,lagoon,NA,NA,NA,0,0.2875,0.298611111,Red,NA
+5/24/2023,MR_23,May_23-MR-D5-DUSK-T3-Red,ROV,8,,DUSK, reef flat,lagoon,NA,NA,NA,0,0.758333333,0.766666667,Red,NA
+5/24/2023,MR_23,May_23-MR-D5-PM-T3-Nat,DOV,8,,PM, reef flat,lagoon,NA,NA,NA,0,0.685416667,0.691666667,Nat,NA
+5/24/2023,MR_23,May_23-MR-D5-PM-T3-Nat,ROV,8,,PM, reef flat,lagoon,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.670138889,0.677083333,Nat,Right
+5/25/2023,MR_23,May_23-MR-D6-DUSK-T2-Nat,DOV,18,,DUSK,moderate_slope,inner_reef,NA,NA,NA,0,0.727777778,0.731944444,Nat,NA
+5/25/2023,MR_23,May_23-MR-D6-DUSK-T2-Red,ROV,18,,DUSK,moderate_slope,inner_reef,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.709027778,0.7125,Red,Pilot
+5/25/2023,MR_23,May_23-MR-D6-DUSK-T2-White,ROV,18,,DUSK,moderate_slope,inner_reef,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.718055556,0.723611111,White,Pilot
+5/25/2023,MR_23,May_23-MR-D6-PM-T2-Nat,DOV,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.658333333,0.6625,Nat,NA
+5/25/2023,MR_23,May_23-MR-D6-PM-T2-Nat,ROV,18,,PM,moderate_slope,inner_reef,NA,NA,NA,0,0.650694444,0.654861111,Nat,NA
+5/26/2023,MR_23,May_23-MR-D6-NOC1-T2-Red,ROV,18,,NOC1,moderate_slope,inner_reef,NA,NA,NA,0,0.1125,0.122222222,Red,NA
+5/26/2023,MR_23,May_23-MR-D6-NOC1-T2-White,ROV,18,,NOC1,moderate_slope,inner_reef,Carcharhinidae,Carcharhinus,Carcharhinus amblyrhynchos,1,0.129166667,0.134027778,White,Front
+5/25/2023,MR_23,May_23-MR-D6-DUSK-T3-Nat,DOV,8,,DUSK, reef flat,lagoon,Carcharhinidae,Triaenodon,Triaenodon obesus,0,0.743055556,0.746527778,Nat,Left
+5/25/2023,MR_23,May_23-MR-D6-DUSK-T3-Red,ROV,8,,DUSK, reef flat,lagoon,NA,NA,NA,0,0.729166667,0.740972222,Red,NA
+5/25/2023,MR_23,May_23-MR-D6-PM-T3-Nat,DOV,8,,PM, reef flat,lagoon,NA,NA,NA,0,0.673611111,0.679166667,Nat,NA
+5/25/2023,MR_23,May_23-MR-D6-PM-T3-Nat,ROV,8,,PM, reef flat,lagoon,NA,NA,NA,0,0.661805556,0.665972222,Nat,NA
+5/26/2023,MR_23,May_23-MR-D6-NOC1-T3-Red,ROV,8,,NOC1, reef flat,lagoon,NA,NA,NA,0,0.14375,0.150694444,Red,NA
+5/26/2023,MR_23,May_23-MR-D6-NOC1-T3-White,ROV,8,,NOC1, reef flat,lagoon,NA,NA,NA,0,0.156944444,0.164583333,White,NA
+5/26/2023,MR_23,May_23-MR-D7-DAWN-T2-Nat,DOV,18,,DAWN,moderate_slope,inner_reef,NA,NA,NA,0,0.290972222,0.297222222,Nat,NA
+5/26/2023,MR_23,May_23-MR-D7-DAWN-T2-Red,ROV,18,,DAWN,moderate_slope,inner_reef,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.283333333,0.289583333,Red,Pilot
+5/26/2023,MR_23,May_23-MR-D7-NOC1-T3-Red,ROV,8,,NOC1, reef flat,lagoon,NA,NA,NA,0,0.888888889,0.893055556,Red,NA
+5/26/2023,MR_23,May_23-MR-D7-NOC1-T3-White,ROV,8,,NOC1, reef flat,lagoon,NA,NA,NA,0,0.903472222,0.909027778,White,NA
+5/27/2023,MR_23,May_23-MR-D7-NOC2-T3-Red,ROV,8,,NOC2, reef flat,lagoon,NA,NA,NA,0,0.171527778,0.177777778,Red,NA
+5/27/2023,MR_23,May_23-MR-D7-NOC2-T3-White,ROV,8,,NOC2, reef flat,lagoon,Hemiscylliidae,Hemiscyllium,Hemiscyllium ocellatum,1,0.188888889,0.19375,White,Right
+5/26/2023,MR_23,May_23-MR-D7-DAWN-T3-Nat,DOV,8,,DAWN, reef flat,lagoon,NA,NA,NA,0,0.256944444,0.261805556,Nat,NA
+5/26/2023,MR_23,May_23-MR-D7-DAWN-T3-Red,ROV,8,,DAWN, reef flat,lagoon,NA,NA,NA,0,0.268055556,0.273611111,Red,NA
+5/26/2023,MR_23,May_23-MR-D7-DAWN-T3-White,ROV,8,,DAWN, reef flat,lagoon,NA,NA,NA,0,0.275694444,0.280555556,White,NA
+5/26/2023,MR_23,May_23-MR-D7-DUSK-T4-Nat,DOV,20,,DUSK, reef flat,inner_reef,NA,NA,NA,0,0.744444444,0.749305556,Nat,NA
+5/26/2023,MR_23,May_23-MR-D7-DUSK-T4-Red,ROV,20,,DUSK, reef flat,inner_reef,NA,NA,NA,0,0.733333333,0.7375,Red,NA
+5/26/2023,MR_23,May_23-MR-D7-DUSK-T4-White,ROV,20,,DUSK, reef flat,inner_reef,NA,NA,NA,0,0.718055556,0.723611111,White,NA
+5/27/2023,MR_23,May_23-MR-D8-DAWN-T4-Nat,DOV,20,,DAWN,reef wall,inner_reef,NA,NA,NA,0,0.2875,0.297222222,Nat,NA
+5/27/2023,MR_23,May_23-MR-D8-DAWN-T4-Red,ROV,20,,DAWN,reef wall,inner_reef,Carcharhinidae,Triaenodon,Triaenodon obesus,1,0.263888889,0.272916667,Red,Front
+5/27/2023,MR_23,May_23-MR-D8-DAWN-T4-White,ROV,20,,DAWN,reef wall,inner_reef,NA,NA,NA,0,0.276388889,0.28125,White,NA
+5/27/2023,MR_23,May_23-MR-D8-DUSK-T4-Nat,DOV,20,,DUSK,reef wall,inner_reef,NA,NA,NA,0,0.7375,0.749305556,Nat,NA
+5/27/2023,MR_23,May_23-MR-D8-DUSK-T4-Red,ROV,20,,DUSK,reef wall,inner_reef,NA,NA,NA,0,0.729166667,0.734027778,Red,NA
+5/28/2023,MR_23,May_23-MR-D9-DAWN-T4-Nat,DOV,20,,DAWN,reef wall,inner_reef,NA,NA,NA,0,0.284722222,0.291666667,Nat,NA
+5/28/2023,MR_23,May_23-MR-D9-DAWN-T4-Red,ROV,20,,DAWN,reef wall,inner_reef,NA,NA,NA,0,0.269444444,0.275694444,Red,NA
