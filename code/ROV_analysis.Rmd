@@ -1,0 +1,635 @@
+
+```{r}
+---
+title: "Experiment 1, 2, 3 analysis"
+output: html_document
+date: "2025-11-08"
+---
+  
+```
+
+```{r}
+library(tidyverse) 
+library(chron)
+library(visreg)
+library(broom)
+library(glmmTMB)
+library(performance)
+library(dplyr)
+library(MASS)
+library(scales)
+library(lmtest)
+library(cowplot)
+library(gt)
+library(forcats)
+library(stringr)
+
+library(dplyr)
+library(ggplot2)
+library(pscl) 
+install.packages("gt")
+install.packages("webshot")
+webshot::install_phantomjs()
+
+```
+
+Experiment 1
+
+
+```{r}
+
+MR_data_zeroes <- read.csv ("Experiment1")
+
+MR_data_zeroes <- Raw_MR_data_zeroes %>%
+  mutate(method = recode(method,
+                         "DOV" = "UVS",
+                         "DIVE" = "UVS"),     
+    survey = factor(survey),                              
+    time.in = chron(times. = time.in),                    
+    time.out = chron(times. = time.out),
+    soak.time.mins = minutes(time.out - time.in),         
+    soak.time.hours = soak.time.mins / 60
+  )
+
+str(MR_data_zeroes)
+unique(MR_data_zeroes$method)
+
+MR.custom_colors2 <- c("UVS" = "#2274A5", "ROV" = "#F97068")
+
+
+DAY.MR_data.aggregated<- MR_data_zeroes %>% 
+  filter(!Time_Day %in% c("NOC1", "NOC2")) %>% 
+  group_by(suvrey_ID, method,soak.time.hours, Time_Day) %>% 
+  mutate(method = factor(method, levels = c("UVS", "ROV"))) %>%
+  filter(!is.na(species)) %>%
+  group_by(species, method) %>%
+  summarise(Totalcount = sum(number, na.rm = TRUE))
+
+
+MR.facet_labels <- c(
+  "UVS" = "UVC",
+  "ROV" = "ROV survey")
+
+
+DAY.MR_species.plot <- ggplot(DAY.MR_data.aggregated, aes(x = Totalcount, y = species, fill = method)) +
+  geom_bar(stat = "identity", color = "black")+
+  facet_wrap(~method, scales = "fixed", labeller = labeller(method = MR.facet_labels)) +
+  labs(x = "Total Sightings", y = NULL) +
+  scale_fill_manual(
+    values = MR.custom_colors2
+  ) +
+  theme_bw() +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y = element_text(face = "italic", size = 11),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(size = 11, margin = margin(r = 15)),  
+    strip.text = element_text(size = 11),
+    panel.spacing = unit(0.5, "lines"),  
+    legend.position = "none"
+  )
+
+DAY.MR_species.plot
+
+All_sharks_zeroes_inc <- MR_data_zeroes %>% 
+  filter(!Time_Day %in% c("NOC1", "NOC2")) %>% 
+  group_by(suvrey_ID, method,soak.time.hours, Time_Day) %>% 
+  summarise(count = sum(number, na.rm = T))
+
+str(All_sharks_zeroes_inc)
+
+unique(All_sharks_zeroes_inc$Time_Day)
+
+mod0 <- glm(count ~ method + offset (log(soak.time.hours)),
+                     control = glm.control(maxit = 100),
+            data = All_sharks_zeroes_inc,
+            family = "poisson")
+summary(mod0)
+
+null_model <- glm(count ~ 1, #method + soak.time.hours + Time_Day,
+                     control = glm.control(maxit = 100),
+            data = All_sharks_zeroes_inc,
+            family = "poisson")
+
+
+mod0.1 <- glm(count ~ method ,
+                     control = glm.control(maxit = 100),
+            data = All_sharks_zeroes_inc,
+            family = "poisson")
+
+summary(mod0.1)
+
+mod_nb <- MASS::glm.nb(count ~ method,
+            data = All_sharks_zeroes_inc)
+
+
+check_model(mod_nb)
+
+
+AIC(null_model, mod0, mod0.1,mod_nb )
+
+library(lmtest)
+lrtest(null_model, mod0.1)
+
+lrtest(mod0, mod0.1)
+
+drop1(mod0)
+
+
+pred_data_mod0 <- data.frame(
+  method = c("ROV", "UVS"),  # Adjust if your method names differ
+  soak.time.hours = mean(All_sharks_zeroes_inc$soak.time.hours, na.rm = TRUE)
+)
+
+
+results_mod0 <- augment(mod0, newdata = pred_data_mod0, se_fit = TRUE) %>%
+  mutate(
+    response_fitted = exp(.fitted),
+    lower = exp(.fitted - 1.96 * .se.fit),
+    upper = exp(.fitted + 1.96 * .se.fit)
+  )
+
+
+ymx  <- max(results_mod0$upper, na.rm = TRUE)
+ypad <- 0.05 * ymx
+
+plot_mod0 <- ggplot(
+  results_mod0,
+  aes(x = factor(method, levels = c("UVS","ROV")),
+      y = response_fitted, ymin = lower, ymax = upper, fill = method)
+) +
+  geom_crossbar(width = 0.5, color = "black") +
+  scale_y_continuous(
+    name   = "Predicted number of\nsharks per hour (± 95% CI)",
+    breaks = pretty(c(0, ymx), n = 5),
+    expand = expansion(add = c(0.01 * ymx, 0))
+  ) +
+  coord_cartesian(ylim = c(-ypad, ymx * 1.05)) +
+  scale_fill_manual(values = c("ROV"="#F97068","UVS"="#2274A5")) +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.title.x = element_blank(),
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.text.y  = element_text(size = 10),
+    axis.title.y = element_text(face = "bold", size = 11, margin = margin(r = 8)),
+    legend.position = "none",
+    plot.margin = margin(10, 10, 10, 10)
+  )
+
+plot_mod0
+
+
+
+```
+
+Experiment 2
+
+```{r}
+
+CPUE.method <- read.csv("Experiment2")
+
+str(CPUE.method)
+
+head(CPUE.method)
+
+CPUE.method <- CPUE.method %>%
+  filter(!if_all(everything(), is.na)) %>%
+  mutate(
+    method = case_when(
+      method == "dropline" ~ "Drumline Catch",
+      method == "ROV survey" ~ "ROV Survey",
+      TRUE ~ method))
+
+CPUE_summary <- CPUE.method %>%
+  group_by(method) %>%
+  summarise(
+    total_effort = sum(time.hrs, na.rm = TRUE),  
+    total_events = sum(catch, na.rm = TRUE),    
+    CPUE_SPUE = total_events / total_effort,
+    .groups = "drop" )
+
+
+print(CPUE_summary)
+
+CPUE.method %>%
+  group_by(method) %>%
+  summarise(
+    n_rows_total = n(),
+    n_rows_with_catch = sum(!is.na(catch)),
+    total_effort = sum(time.hrs, na.rm = TRUE),
+    total_events = sum(catch, na.rm = TRUE))
+
+NWI.custom_colors <- c("Drumline Catch" = "#2274A5", "ROV Survey" = "#F97068")
+
+ggplot(CPUE_summary, aes(x = method, y = CPUE_SPUE, fill = method)) +
+  geom_bar(stat = "identity", width = 0.7, color = "black") +
+  labs(y = "Total CPUE/SPUE", x = NULL) +
+  scale_fill_manual(values = NWI.custom_colors) +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.x = element_text(size = 14),
+    axis.text.y = element_text(size = 11),
+    axis.title.y = element_text(size = 12, margin = margin(r = 15)),
+    axis.title.x = element_blank(),
+    legend.position = "none"
+  )
+
+daily_summary <- CPUE.method %>%
+  group_by(method, date) %>%
+  summarise(
+    total_catch = sum(catch, na.rm = TRUE),
+    total_effort = sum(time.hrs, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  mutate(daily_CPUE = total_catch / total_effort)
+
+
+mean_cpue_by_method <- daily_summary %>%
+  group_by(method) %>%
+  summarise(mean_CPUE_across_days = mean(daily_CPUE, na.rm = TRUE))
+
+
+print(mean_cpue_by_method)
+
+sd_cpue_by_method <- daily_summary %>%
+  group_by(method) %>%
+  summarise(
+    mean_CPUE = mean(daily_CPUE, na.rm = TRUE),
+    sd_CPUE = sd(daily_CPUE, na.rm = TRUE),
+    se_CPUE = sd(daily_CPUE, na.rm = TRUE) / sqrt(n()),
+    .groups = "drop"
+  )%>%
+  mutate(
+    mean_CPUE = format(mean_CPUE, nsmall = 3),
+    sd_CPUE   = format(sd_CPUE, nsmall = 3),
+    se_CPUE   = format(se_CPUE, nsmall = 3)
+  )
+
+print(sd_cpue_by_method)
+
+plot_method_NWI <- ggplot(
+  plot_data_NWI,
+  aes(x = method,
+      y = mean_CPUE,
+      ymin = mean_CPUE - se_CPUE,
+      ymax = mean_CPUE + se_CPUE,
+      fill = method)
+) +
+  geom_crossbar(width = 0.6, color = "black") +
+  scale_y_continuous(name = "Mean CPUE / SPUE (± SE)\nacross sampling days") +
+  scale_fill_manual(values = NWI.custom_colors) +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y  = element_text(size = 11),
+    axis.text.x  = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(face = "bold", size = 11, margin = margin(r = 8)),
+    legend.position = "none",
+    plot.margin = margin(10, 10, 10, 10)
+  )
+  
+
+plot_method_NWI
+
+Species.method <- read.csv("Exp2_species")
+
+str(Species.method)
+
+head(Species.method)
+
+
+
+species_summary <- Species.method %>%
+  mutate(Method = recode(Method, "dropline" = "Drumline Catch", "ROV Sightings" = "ROV Survey")) %>%
+  group_by(Method, Species, Common.name) %>%
+  summarise(Totalcount = sum(Number, na.rm = TRUE), .groups = "drop")
+
+unique(species_summary)
+
+
+NWI.species_plot <- ggplot(species_summary,
+                       aes(x = Totalcount,
+                           y = fct_reorder(Species, Totalcount),
+                           fill = Method)) +
+  geom_bar(stat = "identity", color = "black", width = 0.6) +
+  facet_wrap(~Method, scales = "fixed") +
+  labs(x = "Total Sightings/Drumline Catches", y = NULL) +  
+  scale_fill_manual(values = NWI.custom_colors) +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y = element_text(face = "italic", size = 11),
+    axis.title.x = element_text(size = 14, margin = margin(t = 10)),  
+    strip.text = element_text(size = 14),
+    panel.spacing = unit(1, "lines"),
+    legend.position = "none"
+  )
+
+NWI.species_plot
+
+
+```
+
+Experiment 3
+
+```{r}
+
+Raw_CS_data <- read.csv("Experiment3")
+
+str(Raw_CS_data)
+
+less_Raw_CS_data <- Raw_CS_data %>% 
+  dplyr::select(Survey:Soak.time) %>% 
+  mutate(Survey = factor(Survey))
+
+genera <- c("Carcharhinus", "Galeocerdo", "Negaprion", "Neotrygon", "Orectolobus", "Taeniurops", "Triaenodon")
+
+Elasmo_CS_data <- less_Raw_CS_data %>%
+  filter(grepl(paste(genera, collapse = "|"), Species)) %>%
+  mutate(Species = ifelse(Species == "Neotrygon kuhlii", "Taeniura lymma", Species))
+
+str(Elasmo_CS_data)
+
+head(Elasmo_CS_data)
+
+zero_elasmo_CS_data <- less_Raw_CS_data %>% 
+  dplyr::filter(!T_ID %in% c(Elasmo_CS_data$T_ID)) %>% 
+  dplyr::select(-Species, -MaxN) %>% 
+  dplyr::distinct() %>% 
+  dplyr::mutate(MaxN = 0)
+
+
+Elasmo_CS_data.zeros <- bind_rows(
+  Elasmo_CS_data,
+  zero_elasmo_CS_data
+)
+
+head(Elasmo_CS_data.zeros)
+
+CS_data <- Elasmo_CS_data.zeros %>% 
+  mutate(Depth.bin = cut(Depth, breaks = seq(0,1000,10)),
+         Depth.bin = factor(Depth.bin, ordered = TRUE,levels = sort(unique(Depth.bin))))
+
+ggplot(CS_data, aes(x = Depth, fill = Method))+
+  geom_histogram(binwidth = 10)+
+  facet_wrap(~Method, ncol = 1)+
+  theme_bw()
+
+
+str(CS_data)
+
+BRUV_data <- CS_data %>% 
+  filter(Method == "BRUV") %>% 
+  dplyr::select(Survey , Date , Reef, Method, Dive = Drop.Transect, Habitat, Depth.bin, MaxN) %>% 
+  mutate(N_time = 1)
+
+# Get the max number of sharks per ROV transect depth bin
+ROV_data <- CS_data %>% 
+  filter(Method == "ROV") %>% 
+  separate(Drop.Transect, into = c("Dive", "Transect"),sep = "_T") %>% 
+  group_by(Survey , Date , Reef, Method, Dive, Habitat, Depth.bin) %>% 
+  summarise(MaxN = max(MaxN),
+            N_time = n()*(3.2/60))
+
+All_CS_data <- bind_rows(
+  BRUV_data,
+  ROV_data
+)
+
+head(All_CS_data)
+
+Elasmo_CS_data_aggregated <- Elasmo_CS_data %>%
+  filter(!is.na(Species)) %>%
+  group_by(Species, Method) %>%
+  summarise(TotalMaxN = sum(MaxN, na.rm = TRUE))
+
+CS.custom_colors <- c("BRUV" = "#2274A5", "ROV" = "#F97068")
+
+facet_labels <- c(
+  "BRUV" = "BRUVS",
+  "ROV" = "ROV survey")
+
+CS.species.plot <- ggplot(Elasmo_CS_data_aggregated, aes(x = TotalMaxN, y = Species, fill = Method)) +
+  geom_bar(stat = "identity", position = "dodge", color = "black") +
+  labs(x = "Total MaxN", y = NULL) +
+  facet_wrap(~Method, 
+             scales = "fixed", 
+             ncol = length(unique(Elasmo_CS_data_aggregated$Method)),
+             labeller = labeller(Method = facet_labels)) +  
+  scale_fill_manual(values = CS.custom_colors) +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y = element_text(face = "italic", size = 11),
+    axis.title.x = element_text(size = 14, margin = margin(t = 10)),  
+    strip.text = element_text(size = 14),
+    panel.spacing = unit(1, "lines"),
+    legend.position = "none")
+
+CS.species.plot
+
+
+Lihou_CS_data <- filter(All_CS_data, Reef == "Lihou")
+
+Lihou_CS_data <- na.omit(Lihou_CS_data )
+
+mod.Lihou <- glm(MaxN ~ Method +  offset(log(N_time)),
+                 data= Lihou_CS_data,
+                 family = "poisson")
+
+
+summary(mod.Lihou)
+check_overdispersion(mod.Lihou)
+check_model(mod.Lihou)
+check_zeroinflation(mod.Lihou)
+
+
+pred_data_Lihou <- data.frame(Method = c("ROV", "BRUV"), N_time = mean(Lihou_CS_data$N_time))
+
+results_mod.Lihou <- augment(mod.Lihou, newdata = pred_data_Lihou, se_fit = TRUE) %>% mutate(response_fitted = exp(.fitted),
+         lower = exp(.fitted - .se.fit *1.96),
+         upper = exp(.fitted + .se.fit *1.96))
+
+plot_mod.Lihou <- ggplot(results_mod.Lihou, aes(Method, response_fitted, ymin = lower, ymax = upper, fill = Method)) +
+  geom_crossbar() +
+  scale_y_continuous(name = "Number of sharks\n per hour (± 95% CI)") +
+  scale_fill_manual(values = CS.custom_colors) +
+  theme_bw() +theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+                    axis.title.x = element_blank(),
+                    legend.position = "none",
+                    axis.text.x = element_blank())
+
+plot_mod.Lihou
+
+Willis_CS_data <- filter(All_CS_data, Reef == "Willis")
+Willis_CS_data <- na.omit(Willis_CS_data )
+
+mod.Willis <- glm(MaxN ~ Method +  offset(log(N_time)),
+                  data= Willis_CS_data ,
+                  family = "poisson")
+
+
+
+summary(mod.Willis)
+check_overdispersion(mod.Willis)
+check_model(mod.Willis)
+
+pred_data_Willis <- data.frame(Method = c("ROV", "BRUV"), N_time = mean(Willis_CS_data$N_time))
+
+results_mod.Willis <- augment(mod.Willis, newdata = pred_data_Willis, se_fit = TRUE)%>%
+mutate(response_fitted = exp(.fitted),
+       lower = exp(.fitted - .se.fit *1.96),
+       upper = exp(.fitted + .se.fit *1.96))
+
+plot_mod.Willis <- ggplot(results_mod.Willis, aes(Method, response_fitted, ymin = lower, ymax = upper, fill = Method)) +
+  geom_crossbar() +
+  scale_y_continuous(name = "Number of sharks\n per hour (± 95% CI)") +
+  scale_fill_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  scale_colour_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        axis.title.x = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_blank())
+
+plot_mod.Willis
+
+Flinders_CS_data <- filter(All_CS_data, Reef == "Flinders")
+Flinders_CS_data <- na.omit(Flinders_CS_data )
+
+mod.Flin <- glm(MaxN ~ Method +  offset(log(N_time)),
+                  data= Flinders_CS_data,
+                  family = "poisson")
+
+summary(mod.Flin)
+check_overdispersion(mod.Flin)
+check_model(mod.Flin)
+
+pred_data_Flin <- data.frame(Method = c("ROV", "BRUV"), N_time = mean(Flinders_CS_data$N_time))
+
+results_mod.Flin <- augment(mod.Flin, newdata = pred_data_Flin, se_fit = TRUE)%>%
+mutate(response_fitted = exp(.fitted),
+       lower = exp(.fitted - .se.fit *1.96),
+       upper = exp(.fitted + .se.fit *1.96))
+
+plot_mod.Flin <- ggplot(results_mod.Flin, aes(Method, response_fitted, ymin = lower, ymax = upper, fill = Method)) +
+  geom_crossbar() +
+  scale_y_continuous(name = "Number of sharks\n per hour (± 95% CI)") +
+  scale_fill_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  scale_colour_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        axis.title.x = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_blank())
+
+plot_mod.Flin
+
+Holmes_CS_data <- filter(All_CS_data, Reef == "Holmes")
+Holmes_CS_data <- na.omit(Holmes_CS_data)
+
+mod.Hol <- glm(MaxN ~ Method +  offset(log(N_time)),
+                  data= Holmes_CS_data,
+                  family = "poisson")
+
+summary(mod.Hol)
+check_overdispersion(mod.Hol)
+check_model(mod.Hol)
+
+pred_data_Hol <- data.frame(Method = c("ROV", "BRUV"), N_time = mean(Holmes_CS_data$N_time))
+
+results_mod.Hol <- augment(mod.Hol, newdata = pred_data_Hol, se_fit = TRUE)%>%
+mutate(response_fitted = exp(.fitted),
+       lower = exp(.fitted - .se.fit *1.96),
+       upper = exp(.fitted + .se.fit *1.96))
+
+plot_mod.Hol <- ggplot(results_mod.Hol, aes(Method, response_fitted, ymin = lower, ymax = upper, fill = Method)) +
+  geom_crossbar() +
+  scale_y_continuous(name = "Number of sharks\n per hour (± 95% CI)") +
+  scale_fill_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  scale_colour_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        axis.title.x = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_blank())
+
+plot_mod.Hol
+
+
+Ashmore_CS_data <- filter(All_CS_data, Reef == "Ashmore")
+Ashmore_CS_data <- na.omit(Ashmore_CS_data)
+
+mod.Ash <- glm(MaxN ~ Method +  offset(log(N_time)),
+                  data= Ashmore_CS_data,
+                  family = "poisson")
+
+summary(mod.Ash)
+check_overdispersion(mod.Ash)
+check_model(mod.Ash)
+
+pred_data_Ash <- data.frame(Method = c("ROV", "BRUV"), N_time = mean(Ashmore_CS_data$N_time))
+
+results_mod.Ash <- augment(mod.Ash, newdata = pred_data_Ash, se_fit = TRUE)%>%
+mutate(response_fitted = exp(.fitted),
+       lower = exp(.fitted - .se.fit *1.96),
+       upper = exp(.fitted + .se.fit *1.96))
+
+plot_mod.Ash <- ggplot(results_mod.Ash, aes(Method, response_fitted, ymin = lower, ymax = upper, fill = Method)) +
+  geom_crossbar() +
+  scale_y_continuous(name = "Number of sharks\n per hour (± 95% CI)") +
+  scale_fill_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  scale_colour_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#2274A5")) +
+  theme_bw() +
+  theme(panel.grid.major = element_blank(), panel.grid.minor = element_blank(),
+        axis.title.x = element_blank(),
+        legend.position = "none",
+        axis.text.x = element_blank())
+
+plot_mod.Ash
+
+all_results <- bind_rows(
+  results_mod.Flin %>% mutate(Reef = "Flinders reef"),
+  results_mod.Ash %>% mutate(Reef = "Ashmore reef"),
+  results_mod.Hol %>% mutate(Reef = "Holmes reef"),
+  results_mod.Lihou %>% mutate(Reef = "Lihou reef"),
+  results_mod.Willis %>% mutate(Reef = "Willis reef"))
+
+all.CS.reef_plot <- ggplot(all_results, aes(Method, response_fitted, ymin = lower, ymax = upper, fill = Method)) +
+  geom_crossbar(color = "black", width = 0.6) +
+  scale_y_continuous(name = "Predicted number of \nsharks per survey hour (± 95% CI)") +
+  scale_fill_manual(name = "Method", values = c("ROV" = "#F97068", "BRUV" = "#486696")) +
+  facet_wrap(~Reef, nrow = 1) +
+  theme_bw() +
+  theme(
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    axis.text.y = element_text(size = 11),
+    axis.text.x = element_blank(),
+    axis.ticks.x = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(face = "bold", size = 11, margin = margin(r=8)), 
+    strip.text = element_text(size = 11),
+    panel.spacing = unit(0.5, "lines"),  # Reduce space between facets
+    legend.position = "none"
+  )
+
+all.CS.reef_plot
+
+
+
+```
